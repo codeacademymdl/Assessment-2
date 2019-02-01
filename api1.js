@@ -1,6 +1,5 @@
 const https = require('https');
 
-// const apiList = [];
 // promise.race
 const ratingID = [];
 const getRequest = () => {
@@ -35,10 +34,11 @@ const getRating = (bookID) => {
   return promise;
 };
 
+const booksResponse = [];
 
 const booksJson = getRequest().then((data) => {
   const books = JSON.parse(data).books;
-  // console.log(books[11]);
+  booksResponse.push(books);
   for (let i = 0; i < books.length; i += 1) {
     ratingID.push(books[i].id);
   }
@@ -50,10 +50,17 @@ const booksJson = getRequest().then((data) => {
   });
   const multiplePromiseCalls = async () => {
     const result = await Promise.all(promiseIDRatingRequest);
-    console.log(result);
-    // return result;
+    return result;
   };
-  multiplePromiseCalls();
+  return multiplePromiseCalls();
+}).then((ratingList) => {
+  // console.log(booksResponse);
+  const booksJsonObject = booksResponse[0];
+  // console.log(JSON.parse(ratingList[0]));
+  ratingList.forEach((value, index) => {
+    booksJsonObject[index].rating = (JSON.parse(value).rating);
+  });
+  console.log(booksJsonObject);
 });
 
 
