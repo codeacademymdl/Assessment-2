@@ -48,11 +48,11 @@ const booksJson = getRequest().then((data) => {
   ratingID.forEach((value) => {
     promiseIDRatingRequest.push(getRating(value));
   });
-  const multiplePromiseCalls = async () => {
+  const multipleAPIcalls = async () => {
     const result = await Promise.all(promiseIDRatingRequest);
     return result;
   };
-  return multiplePromiseCalls();
+  return multipleAPIcalls();
 }).then((ratingList) => {
   // console.log(booksResponse);
   const booksJsonObject = booksResponse[0];
@@ -60,8 +60,11 @@ const booksJson = getRequest().then((data) => {
   ratingList.forEach((value, index) => {
     booksJsonObject[index].rating = (JSON.parse(value).rating);
   });
-  console.log(booksJsonObject);
 });
 
+
+const displayBooksObjectResponse = async () => {
+
+};
 
 module.exports = { getRequest, getRating };

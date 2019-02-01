@@ -1,20 +1,20 @@
-const getRequest = require('../api1');
+const api1 = require('../api1');
 
 describe('getRequest', () => {
-  it('should return a string', async () => {
+  it('should return a promise and checks if string is received ', async () => {
     const callback = (data) => {
       expect(typeof data).toEqual(typeof '');
     };
 
-    await getRequest().then(callback);
+    await api1.getRequest().then(callback);
   });
+});
 
-//   it('should not return empty string ', (done) => {
-//     function callbackFunction(data) {
-//       expect(data).not.toEqual('');
-//       done();
-//     }
-//     process.argv = ['node', 'http_client.js', 'http://localhost:3002'];
-//     getRequest(callbackFunction);
-//   });
+describe('getRating', () => {
+  it('should return promise and checks if string is received', async () => {
+    const callback = (data) => {
+      expect(typeof data).toEqual(typeof '');
+    };
+    await api1.getRating().then(callback);
+  });
 });
